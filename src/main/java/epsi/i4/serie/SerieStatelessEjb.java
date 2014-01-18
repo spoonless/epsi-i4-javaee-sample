@@ -6,6 +6,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 @Stateless
@@ -32,5 +33,16 @@ public class SerieStatelessEjb {
 	
 	public Serie get(long id) {
 		return entityManager.find(Serie.class, id);
+	}
+
+	public Serie getByName(String name) {
+		try {
+			return entityManager.createQuery("select s from Serie s where s.name = :name", Serie.class)
+			                    .setParameter("name", name)
+			                    .getSingleResult();
+		}
+		catch (NoResultException e) {
+			return null;
+		}
 	}
 }

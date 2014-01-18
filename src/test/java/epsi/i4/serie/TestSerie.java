@@ -69,4 +69,24 @@ public class TestSerie {
 		
 		assertNull(serieStatelessEjb.get(serie.getId()));
 	}
+
+	@Test
+	public void canGetSerieByName() throws Exception {
+		Serie serie = new Serie();
+		serie.setName("My Favorite Serie");
+		serie.setCreationYear(2010);
+		
+		serieStatelessEjb.create(serie);
+		
+		Serie result = serieStatelessEjb.getByName("My Favorite Serie");
+		
+		assertNotNull(result);
+	}
+
+	@Test
+	public void cannotGetSerieByNameWhenSerieDoesNotExist() throws Exception {
+		Serie result = serieStatelessEjb.getByName("Unknown serie");
+		
+		assertNull(result);
+	}
 }
