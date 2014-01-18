@@ -2,6 +2,8 @@ package epsi.i4.serie;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ejb.EJB;
@@ -42,6 +44,32 @@ public class TestSerie {
 		
 		assertNotNull(serie.getId());
 		assertNotNull(serieStatelessEjb.get(serie.getId()));
+	}
+
+	@Test
+	public void canUpdateSerieWithSeasons() throws Exception {
+		Serie serie = new Serie();
+		serie.setName("My Favorite Serie");
+		serie.setCreationYear(2010);
+		
+		serie.getSeasons().add(newSeason(1));
+		serie.getSeasons().add(newSeason(2));
+		serie.getSeasons().add(newSeason(3));
+		
+		serieStatelessEjb.create(serie);
+		
+		List<Season> seasons = serieStatelessEjb.getSeasons(serie.getId());
+		assertEquals(3, seasons.size());
+		assertEquals(1, seasons.get(0).getNumber());
+		assertEquals(2, seasons.get(1).getNumber());
+		assertEquals(3, seasons.get(2).getNumber());
+	}
+
+	private Season newSeason(int number) {
+		Season season = new Season();
+		season.setNumber(number);
+		season.setFirstAired(Calendar.getInstance());
+		return season;
 	}
 
 	@Test

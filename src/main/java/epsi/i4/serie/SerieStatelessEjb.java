@@ -1,5 +1,7 @@
 package epsi.i4.serie;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -32,5 +34,9 @@ public class SerieStatelessEjb {
 	
 	public Serie get(long id) {
 		return entityManager.find(Serie.class, id);
+	}
+
+	public List<Season> getSeasons(long id) {
+		return entityManager.getReference(Serie.class, id).getSeasons();
 	}
 }
