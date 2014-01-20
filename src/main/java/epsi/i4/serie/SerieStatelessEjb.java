@@ -1,5 +1,6 @@
 package epsi.i4.serie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -49,6 +50,6 @@ public class SerieStatelessEjb {
 	}
 
 	public List<Season> getSeasons(long id) {
-		return entityManager.getReference(Serie.class, id).getSeasons();
+		return new ArrayList<Season>(entityManager.getReference(Serie.class, id).getSeasons());
 	}
 }
