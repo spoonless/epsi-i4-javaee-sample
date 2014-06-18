@@ -44,7 +44,7 @@
 			<!-- L'ensemble des dépendances de TomEE pour l'exécution des tests -->
 			<groupId>org.apache.openejb</groupId>
 			<artifactId>tomee-jaxrs</artifactId>
-			<version>1.5.2</version>
+			<version>1.6.0</version>
 		</dependency>
 	</dependencies>
 </project>
